@@ -1,7 +1,18 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿/**
+ * Credits for whitepaper publishing concurrent trie implementation:
+ * Aleksandar Prokopec EPFL <aleksandar.prokopec@epfl.ch>
+ * Nathan G. Bronson Stanford <ngbronson@gmail.com>
+ * Phil Bagwell Typesafe <phil.bagwell@typesafe.com>
+ * Martin Odersky EPFL <martin.odersky@epfl.ch>
+ * -- 
+ * This code is port of C-Trie implementation by Roman Levenstein <romixlev@gmail.com>
+ * https://github.com/romix/java-concurrent-hash-trie-map 
+ * Author: Jose Sebatian Battig <jsbattig@gmail.com>  
+ */
+
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using JSB.Collections.ConcurrentTrie;
 using ScalaPorts;
-using System.Collections.Generic;
 
 namespace UnitTestNCTrie
 {
@@ -27,6 +38,10 @@ namespace UnitTestNCTrie
       Assert.IsFalse(_listMap.isEmpty());
       var emptyListMap = new ListMap<string, int>.EmptyListMap();
       Assert.IsTrue(emptyListMap.isEmpty());
+      foreach(var kvp in emptyListMap)
+      {
+        Assert.Fail("Code should never get here");
+      }
     }
 
     [TestMethod]
@@ -70,9 +85,9 @@ namespace UnitTestNCTrie
       int i = 2;
       _listMap = _listMap.add("hello", 1);
       _listMap = _listMap.add("hello 2", 2);
-      foreach(var v in _listMap)
+      foreach(var kvp in _listMap)
       {
-        Assert.AreEqual(i--, v.Value);
+        Assert.AreEqual(i--, kvp.Value);
       }
       Assert.AreEqual(-1, i);
     }

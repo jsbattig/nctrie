@@ -1,12 +1,23 @@
-﻿using System;
+﻿/**
+ * Credits for whitepaper publishing concurrent trie implementation:
+ * Aleksandar Prokopec EPFL <aleksandar.prokopec@epfl.ch>
+ * Nathan G. Bronson Stanford <ngbronson@gmail.com>
+ * Phil Bagwell Typesafe <phil.bagwell@typesafe.com>
+ * Martin Odersky EPFL <martin.odersky@epfl.ch>
+ * -- 
+ * This code is port of C-Trie implementation by Roman Levenstein <romixlev@gmail.com>
+ * https://github.com/romix/java-concurrent-hash-trie-map 
+ * Author: Jose Sebatian Battig <jsbattig@gmail.com>
+ * 
+ * Mimic immutable ListMap in Scala
+ */
+
 using System.Collections;
 using System.Collections.Generic;
 using ScalaPorts;
 
 namespace JSB.Collections.ConcurrentTrie
 {
-  /* ListMap class represents inmutable List with Map characteristics */
-
   abstract public class ListMap<K, V> : IEnumerable<KeyValuePair<K,V>>
   {
 
