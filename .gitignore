@@ -1,0 +1,7 @@
+/.vs/
+/TestResults/
+/NCTrie/bin/
+*.cache
+/NCTrie/obj/
+/UnitTestNCTrie/bin/
+/UnitTestNCTrie/obj/
