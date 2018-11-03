@@ -1,9 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using ScalaPorts;
 
 namespace JSB.Collections.ConcurrentTrie
 {
-  abstract public class ListMap<K, V>
+  /* ListMap class represents inmutable List with Map characteristics */
+
+  abstract public class ListMap<K, V> : IEnumerable<KeyValuePair<K,V>>
   {
 
     protected ListMap<K, V> _next;
@@ -39,11 +43,20 @@ namespace JSB.Collections.ConcurrentTrie
 
     abstract public IEnumerator<KeyValuePair<K, V>> iterator();
 
+    public IEnumerator<KeyValuePair<K, V>> GetEnumerator()
+    {
+      return iterator();
+    }
 
-    private class EmptyListMap : ListMap<K, V> {
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+      return iterator();
+    }
+
+    public class EmptyListMap : ListMap<K, V> {
       public override ListMap<K, V> add(K key, V value)
       {
-        return ListMap<K, V>.map(key, value, null);
+        return map(key, value, null);
       }
 
       public override bool contains(K k, V v)
@@ -122,7 +135,7 @@ namespace JSB.Collections.ConcurrentTrie
 
       public override ListMap<K, V> add(K key, V value)
       {
-        return ListMap<K, V>.map(key, value, remove(key));
+        return map(key, value, remove(key));
       }
 
       public override bool contains(K k, V v)
@@ -173,12 +186,12 @@ namespace JSB.Collections.ConcurrentTrie
           {
             if (newN != null)
             {
-              lastN._next = ListMap<K, V>.map(nn.k, nn.v, null);
+              lastN._next = map(nn.k, nn.v, null);
               lastN = lastN._next;
             }
             else
             {
-              newN = ListMap<K, V>.map(nn.k, nn.v, null);
+              newN = map(nn.k, nn.v, null);
               lastN = newN;
             }
           }
