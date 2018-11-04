@@ -41,14 +41,25 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BasicNode.cs" />
+    <Compile Include="CNode.cs" />
     <Compile Include="CNodeBase.cs" />
+    <Compile Include="FailedNode.cs" />
     <Compile Include="Gen.cs" />
+    <Compile Include="INode.cs" />
     <Compile Include="INodeBase.cs" />
+    <Compile Include="JavaCompat.cs" />
+    <Compile Include="KVNode.cs" />
     <Compile Include="ListMap.cs" />
+    <Compile Include="LNode.cs" />
     <Compile Include="MainNode.cs" />
+    <Compile Include="RDCSS_Descriptor.cs" />
+    <Compile Include="RuntimeException.cs" />
     <Compile Include="ScalaPorts.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TrieMap.cs" />
+    <Compile Include="SNode.cs" />
+    <Compile Include="TNode.cs" />
+    <Compile Include="ConcurrentTrieDictionary.cs" />
+    <Compile Include="UnsupportedOperationException.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
