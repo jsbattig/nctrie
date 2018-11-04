@@ -40,26 +40,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BasicNode.cs" />
-    <Compile Include="CNode.cs" />
-    <Compile Include="CNodeBase.cs" />
-    <Compile Include="FailedNode.cs" />
+    <Compile Include="NodeTypes\BasicNode.cs" />
+    <Compile Include="NodeTypes\CNode.cs" />
+    <Compile Include="NodeTypes\CNodeBase.cs" />
+    <Compile Include="NodeTypes\FailedNode.cs" />
     <Compile Include="Gen.cs" />
-    <Compile Include="INode.cs" />
-    <Compile Include="INodeBase.cs" />
-    <Compile Include="JavaCompat.cs" />
-    <Compile Include="KVNode.cs" />
+    <Compile Include="NodeTypes\INode.cs" />
+    <Compile Include="NodeTypes\INodeBase.cs" />
+    <Compile Include="JavaCompat\JavaCompat.cs" />
+    <Compile Include="NodeTypes\KVNode.cs" />
     <Compile Include="ListMap.cs" />
-    <Compile Include="LNode.cs" />
-    <Compile Include="MainNode.cs" />
+    <Compile Include="NodeTypes\LNode.cs" />
+    <Compile Include="NodeTypes\MainNode.cs" />
     <Compile Include="RDCSS_Descriptor.cs" />
-    <Compile Include="RuntimeException.cs" />
+    <Compile Include="JavaCompat\RuntimeException.cs" />
     <Compile Include="ScalaPorts.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SNode.cs" />
-    <Compile Include="TNode.cs" />
+    <Compile Include="NodeTypes\SNode.cs" />
+    <Compile Include="NodeTypes\TNode.cs" />
     <Compile Include="ConcurrentTrieDictionary.cs" />
-    <Compile Include="UnsupportedOperationException.cs" />
+    <Compile Include="JavaCompat\UnsupportedOperationException.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
