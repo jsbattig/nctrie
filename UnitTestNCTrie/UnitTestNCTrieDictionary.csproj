@@ -53,15 +53,17 @@
   </Choose>
   <ItemGroup>
     <Compile Include="TestHelper.cs" />
+    <Compile Include="UnitTestConcurrentTrieDelete.cs" />
+    <Compile Include="UnitTestConcurrentTrieHashCollisions.cs" />
     <Compile Include="UnitTestConcurrentTrieInsert.cs" />
     <Compile Include="UnitTestListMap.cs" />
     <Compile Include="UnitTestScalaPorts.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\NCTrie\NCTrie.csproj">
+    <ProjectReference Include="..\NCTrie\NCTrieDictionary.csproj">
       <Project>{71205e0c-9e2e-4b30-9560-46e43ba7f3e7}</Project>
-      <Name>NCTrie</Name>
+      <Name>NCTrieDictionary</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>
