@@ -52,6 +52,8 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="TestHelper.cs" />
+    <Compile Include="UnitTestConcurrentTrieInsert.cs" />
     <Compile Include="UnitTestListMap.cs" />
     <Compile Include="UnitTestScalaPorts.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

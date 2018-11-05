@@ -508,7 +508,7 @@ namespace JSB.Collections.ConcurrentTrie
       return hashingobj.hash(k);
     }
 
-    V lookup(K k)
+    public V lookup(K k)
     {
       int hc = computeHash(k);
       //        return (V) lookuphc (k, hc);
