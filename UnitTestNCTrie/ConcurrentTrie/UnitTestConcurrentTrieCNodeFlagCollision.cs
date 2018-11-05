@@ -8,7 +8,7 @@ namespace UnitTestNCTrie.ConcurrentTrie
   public class UnitTestConcurrentTrieCNodeFlagCollision
   {
     [TestMethod]
-    public void testCNodeFlagCollision()
+    public void TestConcurrentTrieCNodeFlagCollision()
     {
       ConcurrentTrieDictionary< Object, Object > map = new ConcurrentTrieDictionary<Object, Object>();
       int z15169 = 15169;
