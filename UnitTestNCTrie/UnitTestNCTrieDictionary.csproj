@@ -58,6 +58,7 @@
     <Compile Include="ConcurrentTrie\UnitTestConcurrentTrieDelete.cs" />
     <Compile Include="ConcurrentTrie\UnitTestConcurrentTrieHashCollisions.cs" />
     <Compile Include="ConcurrentTrie\UnitTestConcurrentTrieInsert.cs" />
+    <Compile Include="ConcurrentTrie\UnitTestConcurrentTriePutIfAbsent.cs" />
     <Compile Include="ScalaCompat\UnitTestListMap.cs" />
     <Compile Include="ScalaCompat\UnitTestScalaPorts.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
