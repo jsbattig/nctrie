@@ -17,9 +17,9 @@ namespace JSB.Collections.ConcurrentTrie
   public class CNode<K, V> : CNodeBase<K, V>
   {
 
-    int bitmap;
-    BasicNode[] array;
-    Gen gen;
+    public int bitmap;
+    public BasicNode[] array;
+    public Gen gen;
 
     public CNode(int bitmap, BasicNode[] array, Gen gen)
     {
@@ -73,7 +73,7 @@ namespace JSB.Collections.ConcurrentTrie
       return sz;
     }
 
-    CNode<K, V> updatedAt(int pos, BasicNode nn, Gen gen)
+    public CNode<K, V> updatedAt(int pos, BasicNode nn, Gen gen)
     {
       int len = array.Length;
       BasicNode[] narr = new BasicNode[len];
@@ -83,7 +83,7 @@ namespace JSB.Collections.ConcurrentTrie
       return new CNode<K, V>(bitmap, narr, gen);
     }
 
-    CNode<K, V> removedAt(int pos, int flag, Gen gen)
+    public CNode<K, V> removedAt(int pos, int flag, Gen gen)
     {
       BasicNode[] arr = array;
       int len = arr.Length;
@@ -93,7 +93,7 @@ namespace JSB.Collections.ConcurrentTrie
       return new CNode<K, V>(bitmap ^ flag, narr, gen);
     }
 
-    CNode<K, V> insertedAt(int pos, int flag, BasicNode nn, Gen gen)
+    public CNode<K, V> insertedAt(int pos, int flag, BasicNode nn, Gen gen)
     {
       int len = array.Length;
       int bmp = bitmap;
@@ -108,7 +108,7 @@ namespace JSB.Collections.ConcurrentTrie
      * Returns a copy of this cnode such that all the i-nodes below it are
      * copied to the specified generation `ngen`.
      */
-    CNode<K, V> renewed(Gen ngen, ConcurrentTrieDictionary<K, V> ct)
+    public CNode<K, V> renewed(Gen ngen, ConcurrentTrieDictionary<K, V> ct)
     {
       int i = 0;
       BasicNode[] arr = array;
@@ -136,7 +136,7 @@ namespace JSB.Collections.ConcurrentTrie
                 return inode;
     }
 
-    MainNode<K, V> toContracted(int lev)
+    public MainNode<K, V> toContracted(int lev)
     {
       if (array.Length == 1 && lev > 0)
       {
@@ -157,7 +157,7 @@ namespace JSB.Collections.ConcurrentTrie
     // returns the version of this node with at least some null-inodes
     // removed (those existing when the op began)
     // - if there are only null-i-nodes below, returns null
-    MainNode<K, V> toCompressed(ConcurrentTrieDictionary<K, V> ct, int lev, Gen gen)
+    public MainNode<K, V> toCompressed(ConcurrentTrieDictionary<K, V> ct, int lev, Gen gen)
     {
       int bmp = bitmap;
       int i = 0;
@@ -219,7 +219,7 @@ namespace JSB.Collections.ConcurrentTrie
       return "CNode";
     }
 
-    static MainNode<K, V> dual(SNode<K, V> x, int xhc, SNode<K, V> y, int yhc, int lev, Gen gen)
+    public static MainNode<K, V> dual(SNode<K, V> x, int xhc, SNode<K, V> y, int yhc, int lev, Gen gen)
     {
       if (lev < 35)
       {

@@ -18,7 +18,7 @@ namespace JSB.Collections.ConcurrentTrie
 {
   internal class LNode<K, V> : MainNode<K, V>
   {
-    ListMap<K, V> listmap;
+    public ListMap<K, V> listmap;
 
     public LNode(ListMap<K, V> listmap)
     {
@@ -45,7 +45,7 @@ namespace JSB.Collections.ConcurrentTrie
         KeyValuePair<K, V> kv = updmap.iterator().Current;
         // create it tombed so that it gets compressed on subsequent
         // accesses
-        return new TNode<K, V>(kv.Key, kv.Value, ct.computeHash(kv.getKey()));
+        return new TNode<K, V>(kv.Key, kv.Value, ct.computeHash(kv.Key));
       }
     }
 
@@ -54,7 +54,7 @@ namespace JSB.Collections.ConcurrentTrie
       return listmap.get(k);
     }
 
-    public int cachedSize(Object ct)
+    public override int cachedSize(Object ct)
     {
       return listmap.size();
     }

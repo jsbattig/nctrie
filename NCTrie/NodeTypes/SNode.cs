@@ -14,7 +14,7 @@ using System.Collections.Generic;
 
 namespace JSB.Collections.ConcurrentTrie
 {
-  internal class SNode<K, V> : BasicNode, KVNode<K, V>
+  public class SNode<K, V> : BasicNode, KVNode<K, V>
   {
     public K k;
     public V v;

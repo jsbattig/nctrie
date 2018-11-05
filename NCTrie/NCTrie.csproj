@@ -40,6 +40,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConcurrentTrieDictionaryReadOnlyIterator.cs" />
+    <Compile Include="ConcurrentTrieDictionaryIterator.cs" />
+    <None Include="EntrySet.cs" />
+    <Compile Include="Equiv.cs" />
+    <Compile Include="Hashing.cs" />
+    <Compile Include="JavaCompat\IllegalStateException.cs" />
+    <Compile Include="JavaCompat\NoSuchElementException.cs" />
     <Compile Include="NodeTypes\BasicNode.cs" />
     <Compile Include="NodeTypes\CNode.cs" />
     <Compile Include="NodeTypes\CNodeBase.cs" />

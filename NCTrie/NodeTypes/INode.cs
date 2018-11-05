@@ -16,12 +16,12 @@ using ScalaPorts;
 
 namespace JSB.Collections.ConcurrentTrie
 {
-  class INode<K, V> : INodeBase<K, V>
+  public class INode<K, V> : INodeBase<K, V>
   {
-    static Object KEY_PRESENT = new Object();
-    static Object KEY_ABSENT = new Object();
+    static public Object KEY_PRESENT = new Object();
+    static public Object KEY_ABSENT = new Object();
 
-    static INode<K, V> newRootNode()
+    public static INode<K, V> newRootNode()
     {
       Gen gen = new Gen();
       CNode<K, V> cn = new CNode<K, V>(0, new BasicNode[] { }, gen);
@@ -167,7 +167,7 @@ namespace JSB.Collections.ConcurrentTrie
     * 
     * @return true if successful, false otherwise
     */
-    bool rec_insert(K k, V v, int hc, int lev, INode<K, V> parent, Gen startgen, ConcurrentTrieDictionary<K, V> ct)
+    public bool rec_insert(K k, V v, int hc, int lev, INode<K, V> parent, Gen startgen, ConcurrentTrieDictionary<K, V> ct)
     {
       while (true)
       {
@@ -210,7 +210,7 @@ namespace JSB.Collections.ConcurrentTrie
               else
               {
                 CNode<K, V> rn = (cn.gen == gen) ? cn : cn.renewed(gen, ct);
-                MainNode<K, V> nn = rn.updatedAt(pos, inode(CNode.dual(sn, sn.hc, new SNode<K, V>(k, v, hc), hc, lev + 5, gen)), gen);
+                MainNode<K, V> nn = rn.updatedAt(pos, inode(CNode<K, V>.dual(sn, sn.hc, new SNode<K, V>(k, v, hc), hc, lev + 5, gen)), gen);
                 return GCAS(cn, nn, ct);
               }
             }
@@ -245,7 +245,7 @@ namespace JSB.Collections.ConcurrentTrie
     * @return null if unsuccessful, Option[V] otherwise (indicating
     *         previous value bound to the key)
     */
-    Option<V> rec_insertif(K k, V v, int hc, Object cond, int lev, INode<K, V> parent, Gen startgen, ConcurrentTrieDictionary<K, V> ct)
+    public Option<V> rec_insertif(K k, V v, int hc, Object cond, int lev, INode<K, V> parent, Gen startgen, ConcurrentTrieDictionary<K, V> ct)
     {
       while (true)
       {
@@ -255,7 +255,7 @@ namespace JSB.Collections.ConcurrentTrie
         {
           // 1) a multiway node
           CNode<K, V> cn = (CNode<K, V>)m;
-          int idx = (hc >>> lev) & 0x1f;
+          int idx = (int)((uint)hc >> lev) & 0x1f;
           int flag = 1 << idx;
           int bmp = cn.bitmap;
           int mask = flag - 1;
@@ -294,7 +294,7 @@ namespace JSB.Collections.ConcurrentTrie
                 else
                 {
                   CNode<K, V> rn = (cn.gen == gen) ? cn : cn.renewed(gen, ct);
-                  MainNode<K, V> nn = rn.updatedAt(pos, inode(CNode.dual(sn, sn.hc, new SNode<K, V>(k, v, hc), hc, lev + 5, gen)), gen);
+                  MainNode<K, V> nn = rn.updatedAt(pos, inode(CNode<K, V>.dual(sn, sn.hc, new SNode<K, V>(k, v, hc), hc, lev + 5, gen)), gen);
                   if (GCAS(cn, nn, ct))
                     return Option<V>.makeOption(); // None;
                   else
@@ -308,7 +308,7 @@ namespace JSB.Collections.ConcurrentTrie
                 else
                 {
                   CNode<K, V> rn = (cn.gen == gen) ? cn : cn.renewed(gen, ct);
-                  MainNode<K, V> nn = rn.updatedAt(pos, inode(CNode.dual(sn, sn.hc, new SNode<K, V>(k, v, hc), hc, lev + 5, gen)), gen);
+                  MainNode<K, V> nn = rn.updatedAt(pos, inode(CNode<K, V>.dual(sn, sn.hc, new SNode<K, V>(k, v, hc), hc, lev + 5, gen)), gen);
                   if (GCAS(cn, nn, ct))
                     return Option<V>.makeOption(); // None
                   else
@@ -430,7 +430,7 @@ namespace JSB.Collections.ConcurrentTrie
     * @return null if no value has been found, RESTART if the operation
     *         wasn't successful, or any other value otherwise
     */
-    Object rec_lookup(K k, int hc, int lev, INode<K, V> parent, Gen startgen, ConcurrentTrieDictionary<K, V> ct)
+    public Object rec_lookup(K k, int hc, int lev, INode<K, V> parent, Gen startgen, ConcurrentTrieDictionary<K, V> ct)
     {
       while (true)
       {
@@ -511,13 +511,13 @@ namespace JSB.Collections.ConcurrentTrie
     * @return null if not successful, an Option[V] indicating the previous
     *         value otherwise
     */
-    Option<V> rec_remove(K k, V v, int hc, int lev, INode<K, V> parent, Gen startgen, ConcurrentTrieDictionary<K, V> ct)
+    public Option<V> rec_remove(K k, V v, int hc, int lev, INode<K, V> parent, Gen startgen, ConcurrentTrieDictionary<K, V> ct)
     {
       MainNode<K, V> m = GCAS_READ(ct); // use -Yinline!
 
       if (m is CNode<K, V>) {
         CNode<K, V> cn = (CNode<K, V>)m;
-        int idx = (hc >>> lev) & 0x1f;
+        int idx = (int)((uint)hc >> lev) & 0x1f;
         int bmp = cn.bitmap;
         int flag = 1 << idx;
         if ((bmp & flag) == 0)

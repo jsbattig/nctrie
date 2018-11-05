@@ -12,19 +12,14 @@
 
 namespace JSB.Collections.ConcurrentTrie
 {
-  internal class RDCSS_Descriptor<K, V>
+  public class Equiv<K>
   {
-    public INode<K, V> old;
-    public MainNode<K, V> expectedmain;
-    public INode<K, V> nv;
-    public volatile bool committed = false;
+    private static long serialVersionUID = 1L;
 
-    public RDCSS_Descriptor(INode<K, V> old, MainNode<K, V> expectedmain, INode<K, V> nv)
+    public bool equiv(K k1, K k2)
     {
-      this.old = old;
-      this.expectedmain = expectedmain;
-      this.nv = nv;
+      return k1.Equals(k2);
     }
-
+    static public Equiv<K> universal = new Equiv<K>();
   }
 }
