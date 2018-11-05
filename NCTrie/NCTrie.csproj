@@ -40,28 +40,28 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConcurrentTrieDictionaryReadOnlyIterator.cs" />
-    <Compile Include="ConcurrentTrieDictionaryIterator.cs" />
-    <None Include="EntrySet.cs" />
-    <Compile Include="Equiv.cs" />
-    <Compile Include="Hashing.cs" />
+    <Compile Include="Iterators\ConcurrentTrieDictionaryReadOnlyIterator.cs" />
+    <Compile Include="Iterators\ConcurrentTrieDictionaryIterator.cs" />
+    <None Include="Misc\EntrySet.cs" />
+    <Compile Include="Misc\Equiv.cs" />
+    <Compile Include="Misc\Hashing.cs" />
     <Compile Include="JavaCompat\IllegalStateException.cs" />
     <Compile Include="JavaCompat\NoSuchElementException.cs" />
     <Compile Include="NodeTypes\BasicNode.cs" />
     <Compile Include="NodeTypes\CNode.cs" />
     <Compile Include="NodeTypes\CNodeBase.cs" />
     <Compile Include="NodeTypes\FailedNode.cs" />
-    <Compile Include="Gen.cs" />
+    <Compile Include="Misc\Gen.cs" />
     <Compile Include="NodeTypes\INode.cs" />
     <Compile Include="NodeTypes\INodeBase.cs" />
     <Compile Include="JavaCompat\JavaCompat.cs" />
     <Compile Include="NodeTypes\KVNode.cs" />
-    <Compile Include="ListMap.cs" />
+    <Compile Include="ScalaCompat\ListMap.cs" />
     <Compile Include="NodeTypes\LNode.cs" />
     <Compile Include="NodeTypes\MainNode.cs" />
-    <Compile Include="RDCSS_Descriptor.cs" />
+    <Compile Include="Misc\RDCSS_Descriptor.cs" />
     <Compile Include="JavaCompat\RuntimeException.cs" />
-    <Compile Include="ScalaPorts.cs" />
+    <Compile Include="ScalaCompat\ScalaPorts.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="NodeTypes\SNode.cs" />
     <Compile Include="NodeTypes\TNode.cs" />
