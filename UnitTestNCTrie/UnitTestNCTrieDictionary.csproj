@@ -53,6 +53,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="ConcurrentTrie\TestHelper.cs" />
+    <Compile Include="ConcurrentTrie\UnitTestConcurrentTrieCNodeFlagCollision.cs" />
     <Compile Include="ConcurrentTrie\UnitTestConcurrentTrieDelete.cs" />
     <Compile Include="ConcurrentTrie\UnitTestConcurrentTrieHashCollisions.cs" />
     <Compile Include="ConcurrentTrie\UnitTestConcurrentTrieInsert.cs" />
