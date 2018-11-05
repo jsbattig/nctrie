@@ -52,12 +52,12 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="TestHelper.cs" />
-    <Compile Include="UnitTestConcurrentTrieDelete.cs" />
-    <Compile Include="UnitTestConcurrentTrieHashCollisions.cs" />
-    <Compile Include="UnitTestConcurrentTrieInsert.cs" />
-    <Compile Include="UnitTestListMap.cs" />
-    <Compile Include="UnitTestScalaPorts.cs" />
+    <Compile Include="ConcurrentTrie\TestHelper.cs" />
+    <Compile Include="ConcurrentTrie\UnitTestConcurrentTrieDelete.cs" />
+    <Compile Include="ConcurrentTrie\UnitTestConcurrentTrieHashCollisions.cs" />
+    <Compile Include="ConcurrentTrie\UnitTestConcurrentTrieInsert.cs" />
+    <Compile Include="ScalaCompat\UnitTestListMap.cs" />
+    <Compile Include="ScalaCompat\UnitTestScalaPorts.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
