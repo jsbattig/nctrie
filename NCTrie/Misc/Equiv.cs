@@ -14,8 +14,6 @@ namespace JSB.Collections.ConcurrentTrie
 {
   public class Equiv<K>
   {
-    private static long serialVersionUID = 1L;
-
     public bool equiv(K k1, K k2)
     {
       return k1.Equals(k2);

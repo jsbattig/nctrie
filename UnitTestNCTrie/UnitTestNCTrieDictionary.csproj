@@ -57,8 +57,12 @@
     <Compile Include="ConcurrentTrie\UnitTestConcurrentTrieCNodeInsertionIncorrectOrder.cs" />
     <Compile Include="ConcurrentTrie\UnitTestConcurrentTrieDelete.cs" />
     <Compile Include="ConcurrentTrie\UnitTestConcurrentTrieHashCollisions.cs" />
+    <Compile Include="ConcurrentTrie\UnitTestConcurrentTrieHashCollisionsRemove.cs" />
     <Compile Include="ConcurrentTrie\UnitTestConcurrentTrieInsert.cs" />
     <Compile Include="ConcurrentTrie\UnitTestConcurrentTriePutIfAbsent.cs" />
+    <Compile Include="ConcurrentTrie\UnitTestConcurrentTrieRemove.cs" />
+    <Compile Include="ConcurrentTrie\UnitTestConcurrentTrieReplace.cs" />
+    <Compile Include="ConcurrentTrie\UnitTestMultithreadedConcurrentTrieIterator.cs" />
     <Compile Include="ScalaCompat\UnitTestListMap.cs" />
     <Compile Include="ScalaCompat\UnitTestScalaPorts.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

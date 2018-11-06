@@ -18,8 +18,6 @@ namespace JSB.Collections.ConcurrentTrie
   }
 
   internal class Default<K> : Hashing<K> {
-    private static long serialVersionUID = 1L;
-
     public int hash(K k)
     {
       int h = k.GetHashCode();

@@ -18,6 +18,11 @@ using ScalaPorts;
 
 namespace JSB.Collections.ConcurrentTrie
 {
+  public interface ScalaIterator
+  {
+    bool hasNext();
+  }
+
   abstract public class ListMap<K, V> : IEnumerable<KeyValuePair<K,V>>
   {
 
@@ -106,10 +111,16 @@ namespace JSB.Collections.ConcurrentTrie
       }
     }
 
-    private class EmptyListMapIterator : IEnumerator<KeyValuePair<K, V>> {
+    private class EmptyListMapIterator : IEnumerator<KeyValuePair<K, V>>, ScalaIterator
+    {
       static private KeyValuePair<K, V> _emptyKVP = new KeyValuePair<K, V>();
 
       public object Current { get { return null; } }
+
+      public bool hasNext()
+      {
+        return false;
+      }
 
       public bool MoveNext() {
         return false;
@@ -239,7 +250,7 @@ namespace JSB.Collections.ConcurrentTrie
         return new NodeIterator(this);
       }
 
-      private class NodeIterator : IEnumerator<KeyValuePair<K, V>>
+      private class NodeIterator : IEnumerator<KeyValuePair<K, V>>, ScalaIterator
       {
         static private KeyValuePair<K, V> _emptyKVP = new KeyValuePair<K, V>();
         ListMap<K, V> n;
@@ -250,6 +261,11 @@ namespace JSB.Collections.ConcurrentTrie
         }
 
         public object Current { get { return null; } }
+
+        public bool hasNext()
+        {
+          return n != null && !(n is EmptyListMap);
+        }
 
         public bool MoveNext()
         {

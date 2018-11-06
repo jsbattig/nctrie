@@ -7,12 +7,7 @@ using System.Threading.Tasks;
 
 namespace JSB.Collections.ConcurrentTrie
 {
-  interface IConcurrentTrieDictionaryIterator<K, V>
-  {
-    bool hasNext();
-  }
-
-  public class ConcurrentTrieDictionaryIterator<K, V> : IEnumerator<KeyValuePair<K, V>>, IConcurrentTrieDictionaryIterator<K, V>
+  public class ConcurrentTrieDictionaryIterator<K, V> : IEnumerator<KeyValuePair<K, V>>, ScalaIterator
   {
     private int level;
     protected ConcurrentTrieDictionary<K, V> ct;
@@ -28,7 +23,7 @@ namespace JSB.Collections.ConcurrentTrie
     {
       get
       {
-        throw new NotImplementedException();
+        return lastReturned;
       }
     }
 
@@ -36,7 +31,7 @@ namespace JSB.Collections.ConcurrentTrie
     {
       get
       {
-        throw new NotImplementedException();
+        return lastReturned;
       }
     }
 
@@ -88,14 +83,13 @@ namespace JSB.Collections.ConcurrentTrie
       return new KeyValuePair<K, V>(rr.Key, rr.Value);
     }
 
-    public void Dispose()
-    {
-      throw new NotImplementedException();
-    }
+    public void Dispose() {}
 
     public bool MoveNext()
     {
-      throw new NotImplementedException();
+      bool _hasNext = hasNext();
+      next();
+      return _hasNext;
     }
 
     public void Reset()
@@ -125,7 +119,7 @@ namespace JSB.Collections.ConcurrentTrie
     
     private void checkSubiter()
     {
-      if (!((IConcurrentTrieDictionaryIterator<K, V>)subiter).hasNext())
+      if (!((ScalaIterator)subiter).hasNext())
       {
         subiter = null;
         advance();

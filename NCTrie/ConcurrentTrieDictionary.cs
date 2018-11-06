@@ -18,8 +18,7 @@ using ScalaPorts;
 
 namespace JSB.Collections.ConcurrentTrie
 {
-  public class ConcurrentTrieDictionary<K, V> :  IDictionary<K, V> {
-    private static long serialVersionUID = 1L;
+  public class ConcurrentTrieDictionary<K, V> :  IDictionary<K, V> {    
     //private static Field READONLY_FIELD;
 
     /*static {
@@ -80,6 +79,9 @@ namespace JSB.Collections.ConcurrentTrie
       }
     }
 
+    private EntrySet<K, V> entrySet;
+    public EntrySet<K, V> EntrySet { get { return entrySet; } }
+
     public static ConcurrentTrieDictionary<K, V> empty()
     {
       return new ConcurrentTrieDictionary<K, V>();
@@ -117,7 +119,7 @@ namespace JSB.Collections.ConcurrentTrie
 
     public IEnumerator<KeyValuePair<K, V>> GetEnumerator()
     {
-      throw new NotImplementedException();
+      return iterator();
     }
 
     public bool Remove(KeyValuePair<K, V> item)
@@ -167,6 +169,7 @@ namespace JSB.Collections.ConcurrentTrie
       hashingobj = hashf;
       equalityobj = ef;
       this.readOnly = readOnly;
+      entrySet = new EntrySet<K, V>(this);
     }
 
     ConcurrentTrieDictionary( Object r,  Hashing<K> hashf,  Equiv<K> ef, bool readOnly) : this(hashf, ef, readOnly)
@@ -694,21 +697,7 @@ namespace JSB.Collections.ConcurrentTrie
     {
       return "ConcurrentTrieDictionary";
     }
-
-    /***
-    * This iterator is a read-only one and does not allow for any update
-    * operations on the underlying data structure.
-    * 
-    * @param <K>
-    * @param <V>
-    */
-        
     
-
-    /** Only used for ctrie serialization. */
-    // @SerialVersionUID(0L - 7237891413820527142L)
-    private static long ConcurrentTrieDictionarySerializationEnd = 0L - 7237891413820527142L;
-
     public bool containsKey(Object key)
     {
       return lookup((K)key) != null;

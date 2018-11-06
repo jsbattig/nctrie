@@ -42,7 +42,7 @@
   <ItemGroup>
     <Compile Include="Iterators\ConcurrentTrieDictionaryReadOnlyIterator.cs" />
     <Compile Include="Iterators\ConcurrentTrieDictionaryIterator.cs" />
-    <None Include="Misc\EntrySet.cs" />
+    <Compile Include="Misc\EntrySet.cs" />
     <Compile Include="Misc\Equiv.cs" />
     <Compile Include="Misc\Hashing.cs" />
     <Compile Include="JavaCompat\IllegalStateException.cs" />
