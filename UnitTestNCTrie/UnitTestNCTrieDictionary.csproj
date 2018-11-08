@@ -61,6 +61,7 @@
     <Compile Include="ConcurrentTrie\UnitTestConcurrentTrieInsert.cs" />
     <Compile Include="ConcurrentTrie\UnitTestConcurrentTrieIterator.cs" />
     <Compile Include="ConcurrentTrie\UnitTestConcurrentTrieMultiThreadedAddDelete.cs" />
+    <Compile Include="ConcurrentTrie\UnitTestConcurrentTrieMultithreadedInserts.cs" />
     <Compile Include="ConcurrentTrie\UnitTestConcurrentTriePutIfAbsent.cs" />
     <Compile Include="ConcurrentTrie\UnitTestConcurrentTrieRemove.cs" />
     <Compile Include="ConcurrentTrie\UnitTestConcurrentTrieReplace.cs" />
