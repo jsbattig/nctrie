@@ -20,7 +20,7 @@ namespace UnitTestNCTrie.ConcurrentTrie
           bt.put(o, o);
         }
       }
-
+      
       for (int j = 0; j < count; j++)
       {
         Object[] objects = UnitTestMultithreadedConcurrentTrieIterator.getObjects(j);

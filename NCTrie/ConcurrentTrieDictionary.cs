@@ -67,7 +67,10 @@ namespace JSB.Collections.ConcurrentTrie
     {
       get
       {
-        throw new NotImplementedException();
+        var keys = new List<K>();
+        foreach(var kvp in this)        
+          keys.Add(kvp.Key);        
+        return keys;
       }
     }
 
@@ -75,7 +78,10 @@ namespace JSB.Collections.ConcurrentTrie
     {
       get
       {
-        throw new NotImplementedException();
+        var values = new List<V>();
+        foreach (var kvp in this)
+          values.Add(kvp.Value);
+        return values;
       }
     }
 

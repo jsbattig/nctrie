@@ -19,7 +19,7 @@ namespace JSB.Collections.ConcurrentTrie
 
     public bool CAS_SIZE(int oldval, int nval)
     {
-      Interlocked.CompareExchange(ref csize, oldval, nval);
+      Interlocked.CompareExchange(ref csize, nval, oldval);
       return csize == nval;
     }
 
