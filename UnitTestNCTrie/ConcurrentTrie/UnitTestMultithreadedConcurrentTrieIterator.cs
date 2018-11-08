@@ -62,7 +62,7 @@ namespace UnitTestNCTrie.ConcurrentTrie
       TestHelper.assertEquals(50000 + 2000 + 1000 + 100, count);      
     }
 
-    private void WaitThreadPoolCompletion()
+    public static void WaitThreadPoolCompletion()
     {
       int wt, mwt;
       int cpwt, mcpwt;

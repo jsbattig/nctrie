@@ -8,7 +8,7 @@ namespace UnitTestNCTrie.ConcurrentTrie
   public class UnitTestConcurrentTrieHashCollisionsRemove
   {
     [TestMethod]
-    public void testHashCollisionsRemove()
+    public void TestHashCollisionsRemove()
     {
       ConcurrentTrieDictionary< Object, Object > bt = new ConcurrentTrieDictionary<Object, Object>();
       int count = 50000;
