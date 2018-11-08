@@ -2,16 +2,19 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using JSB.Collections.ConcurrentTrie;
 using System.Threading;
+using System.Collections.Concurrent;
 
 namespace UnitTestNCTrie.ConcurrentTrie
 {
 	[TestClass]
 	public class UnitTestConcurrentTrieMultithreadedInserts
 	{
-		[TestMethod]
+    static int nThreads = 12;
+    static int totalItems = 1000 * 500;
+
+    [TestMethod]
     public void TestConcurrentTrieMultiThreadInserts()
-    {
-      int nThreads = 2;
+    {      
       ThreadPool.SetMaxThreads(nThreads, nThreads);      
       var bt = new ConcurrentTrieDictionary<Object, Object>();
       for (int i = 0; i < nThreads; i++)
@@ -19,7 +22,7 @@ namespace UnitTestNCTrie.ConcurrentTrie
         int threadNo = i;
         ThreadPool.QueueUserWorkItem(new WaitCallback(delegate
         {
-          for (int j = 0; j < 500 * 1000; j++)
+          for (int j = 0; j < totalItems; j++)
           {
             if (j % nThreads == threadNo)
             {
@@ -31,11 +34,41 @@ namespace UnitTestNCTrie.ConcurrentTrie
 
       UnitTestMultithreadedConcurrentTrieIterator.WaitThreadPoolCompletion();
 
-      for (int j = 0; j < 500 * 1000; j++)
+      for (int j = 0; j < totalItems; j++)
       {
         Object lookup = bt.lookup(j);
         TestHelper.assertEquals(j, lookup);
       }      
     }
-	}
+
+    [TestMethod]
+    public void TestConcurrentDictionaryultiThreadInserts()
+    {      
+      ThreadPool.SetMaxThreads(nThreads, nThreads);
+      var bt = new ConcurrentDictionary<Object, Object>();
+      for (int i = 0; i < nThreads; i++)
+      {
+        int threadNo = i;
+        ThreadPool.QueueUserWorkItem(new WaitCallback(delegate
+        {
+          for (int j = 0; j < totalItems; j++)
+          {
+            if (j % nThreads == threadNo)
+            {
+              bt.TryAdd(j, j);
+            }
+          }
+        }));
+      }
+
+      UnitTestMultithreadedConcurrentTrieIterator.WaitThreadPoolCompletion();
+
+      for (int j = 0; j < totalItems; j++)
+      {
+        Object lookup;
+        TestHelper.assertTrue(bt.TryGetValue(j, out lookup));
+        TestHelper.assertEquals(j, lookup);
+      }
+    }
+  }
 }
