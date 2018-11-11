@@ -84,9 +84,7 @@ namespace JSB.Collections.ConcurrentTrie
         return values;
       }
     }
-
-    private EntrySet<K, V> entrySet;
-    public EntrySet<K, V> EntrySet { get { return entrySet; } }
+    public EntrySet<K, V> EntrySet { get; }
 
     public static ConcurrentTrieDictionary<K, V> empty()
     {
@@ -175,7 +173,7 @@ namespace JSB.Collections.ConcurrentTrie
       hashingobj = hashf;
       equalityobj = ef;
       this.readOnly = readOnly;
-      entrySet = new EntrySet<K, V>(this);
+      EntrySet = new EntrySet<K, V>(this);
     }
 
     ConcurrentTrieDictionary( Object r,  Hashing<K> hashf,  Equiv<K> ef, bool readOnly) : this(hashf, ef, readOnly)

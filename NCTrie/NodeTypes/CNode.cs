@@ -133,7 +133,7 @@ namespace JSB.Collections.ConcurrentTrie
         TNode<K, V> tn = (TNode<K, V>)inodemain;
         return tn.copyUntombed();
       } else
-                return inode;
+      return inode;
     }
 
     public MainNode<K, V> toContracted(int lev)
@@ -144,8 +144,7 @@ namespace JSB.Collections.ConcurrentTrie
           SNode<K, V> sn = (SNode<K, V>)array[0];
           return sn.copyTombed();
         } else
-                    return this;
-
+          return this;
       }
       else
         return this;

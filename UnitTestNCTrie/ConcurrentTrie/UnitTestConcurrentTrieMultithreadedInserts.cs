@@ -10,13 +10,15 @@ namespace UnitTestNCTrie.ConcurrentTrie
 	public class UnitTestConcurrentTrieMultithreadedInserts
 	{
     static int nThreads = 12;
-    static int totalItems = 1000 * 500;
+    static int totalItems = 1000 * 1000 * 30;
 
     [TestMethod]
     public void TestConcurrentTrieMultiThreadInserts()
-    {      
-      ThreadPool.SetMaxThreads(nThreads, nThreads);      
-      var bt = new ConcurrentTrieDictionary<Object, Object>();
+    {     
+      int counter = nThreads;
+      ThreadPool.SetMaxThreads(nThreads, nThreads);
+      long mem = GC.GetTotalMemory(true);
+      var bt = new ConcurrentTrieDictionary<string, string>();
       for (int i = 0; i < nThreads; i++)
       {
         int threadNo = i;
@@ -26,26 +28,30 @@ namespace UnitTestNCTrie.ConcurrentTrie
           {
             if (j % nThreads == threadNo)
             {
-              bt.put(j, j);
+              bt.put(j.ToString(), j.ToString());
             }
           }
+          Interlocked.Decrement(ref counter);
         }));
-      }
+      }     
 
-      UnitTestMultithreadedConcurrentTrieIterator.WaitThreadPoolCompletion();
+      UnitTestMultithreadedConcurrentTrieIterator.WaitThreadPoolCompletion(ref counter);
+      var diff = GC.GetTotalMemory(true) - mem;
 
       for (int j = 0; j < totalItems; j++)
       {
-        Object lookup = bt.lookup(j);
-        TestHelper.assertEquals(j, lookup);
+        string lookup = bt.lookup(j.ToString());
+        TestHelper.assertEquals(j, int.Parse(lookup));
       }      
     }
 
     [TestMethod]
     public void TestConcurrentDictionaryultiThreadInserts()
-    {      
+    {
+      int counter = nThreads;
       ThreadPool.SetMaxThreads(nThreads, nThreads);
-      var bt = new ConcurrentDictionary<Object, Object>();
+      long mem = GC.GetTotalMemory(true);
+      var bt = new ConcurrentDictionary<string, string>();
       for (int i = 0; i < nThreads; i++)
       {
         int threadNo = i;
@@ -55,19 +61,21 @@ namespace UnitTestNCTrie.ConcurrentTrie
           {
             if (j % nThreads == threadNo)
             {
-              bt.TryAdd(j, j);
+              bt.TryAdd(j.ToString(), j.ToString());
             }
           }
+          Interlocked.Decrement(ref counter);
         }));
       }
 
-      UnitTestMultithreadedConcurrentTrieIterator.WaitThreadPoolCompletion();
+      UnitTestMultithreadedConcurrentTrieIterator.WaitThreadPoolCompletion(ref counter);
+      var diff = GC.GetTotalMemory(true) - mem;
 
       for (int j = 0; j < totalItems; j++)
       {
-        Object lookup;
-        TestHelper.assertTrue(bt.TryGetValue(j, out lookup));
-        TestHelper.assertEquals(j, lookup);
+        string lookup;
+        TestHelper.assertTrue(bt.TryGetValue(j.ToString(), out lookup));
+        TestHelper.assertEquals(j, int.Parse(lookup));
       }
     }
   }

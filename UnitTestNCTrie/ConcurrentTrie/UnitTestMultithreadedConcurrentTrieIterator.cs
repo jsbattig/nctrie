@@ -30,10 +30,11 @@ namespace UnitTestNCTrie.ConcurrentTrie
       }
 
       int count = 0;
+      int counter = NTHREADS;
       ThreadPool.SetMaxThreads(NTHREADS, NTHREADS);
       for (int i = 0; i < NTHREADS; i++)
       {
-        int threadNo = i;
+        int threadNo = i;        
         ThreadPool.QueueUserWorkItem(new WaitCallback(delegate
         {
           for (IEnumerator<KeyValuePair<Object, Object>> it = bt.EntrySet.iterator(); true;)
@@ -47,10 +48,10 @@ namespace UnitTestNCTrie.ConcurrentTrie
               ((ObjectHolder)e.Value).obj = newValue;
             }
           }
-        }));
-
-        WaitThreadPoolCompletion();
+          Interlocked.Decrement(ref counter);
+        }));       
       }
+      WaitThreadPoolCompletion(ref counter);
 
       count = 0;
       foreach (KeyValuePair<Object, Object> kv in bt.EntrySet)
@@ -62,16 +63,12 @@ namespace UnitTestNCTrie.ConcurrentTrie
       TestHelper.assertEquals(50000 + 2000 + 1000 + 100, count);      
     }
 
-    public static void WaitThreadPoolCompletion()
+    public static void WaitThreadPoolCompletion(ref int counter)
     {
-      int wt, mwt;
-      int cpwt, mcpwt;
       do
       {
-        ThreadPool.GetAvailableThreads(out wt, out cpwt);
-        ThreadPool.GetMaxThreads(out mwt, out mcpwt);
         Thread.Sleep(1);
-      } while (wt < mwt);
+      } while (counter > 0);
     }
 
     protected static bool accepts(int threadNo, int nThreads, Object key)

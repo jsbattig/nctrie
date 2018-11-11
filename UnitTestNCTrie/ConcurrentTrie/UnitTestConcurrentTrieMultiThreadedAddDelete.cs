@@ -17,9 +17,11 @@ namespace UnitTestNCTrie.ConcurrentTrie
     {
       for (int j = 0; j < RETRIES; j++)
       {
+
         var bt = new ConcurrentTrieDictionary<Object, Object>();
         {
           ThreadPool.SetMaxThreads(N_THREADS, N_THREADS);
+          int counter = N_THREADS;
           for (int i = 0; i < N_THREADS; i++)
           {
             int threadNo = i;
@@ -32,11 +34,13 @@ namespace UnitTestNCTrie.ConcurrentTrie
                   bt.put(jj, jj);
                 }
               }
-            }));
-          }
-          UnitTestMultithreadedConcurrentTrieIterator.WaitThreadPoolCompletion();
+              Interlocked.Decrement(ref counter);
+            }));            
+          }        
+          UnitTestMultithreadedConcurrentTrieIterator.WaitThreadPoolCompletion(ref counter);
 
           TestHelper.assertEquals(COUNT, bt.size());
+          counter = N_THREADS;
 
           for (int i = 0; i < N_THREADS; i++) {
             int threadNo = i;
@@ -49,44 +53,52 @@ namespace UnitTestNCTrie.ConcurrentTrie
                   bt.remove(jj);
                 }
               }
+              Interlocked.Decrement(ref counter);
             }));
           }
-          UnitTestMultithreadedConcurrentTrieIterator.WaitThreadPoolCompletion();
+          UnitTestMultithreadedConcurrentTrieIterator.WaitThreadPoolCompletion(ref counter);
 
-
+          counter = N_THREADS;
           TestHelper.assertEquals(0, bt.size());
           for (int i = 0; i < N_THREADS; i++) {
             int threadNo = i;
             ThreadPool.QueueUserWorkItem(new WaitCallback(delegate
             {
-              for (int jj = 0; jj < COUNT; jj++)
+              try
               {
-                if (jj % N_THREADS == threadNo)
+                for (int jj = 0; jj < COUNT; jj++)
                 {
-                  try
+                  if (jj % N_THREADS == threadNo)
                   {
-                    bt.put(jj, jj);
-                    if (!bt.containsKey(jj))
+                    try
                     {
-                      Assert.Fail("Key j not found");
+                      bt.put(jj, jj);
+                      if (!bt.containsKey(jj))
+                      {
+                        Assert.Fail("Key j not found");
+                      }
+                      bt.remove(jj);
+                      if (bt.containsKey(jj))
+                      {
+                        Assert.Fail("Key jj found and should have been removed");
+                      }
                     }
-                    bt.remove(jj);
-                    if (bt.containsKey(jj))
+                    catch (Exception e)
                     {
-                      Assert.Fail("Key jj found and should have been removed");
+                      Assert.Fail(e.Message);
                     }
-                  }
-                  catch (Exception e)
-                  {
-                    Assert.Fail(e.Message);
                   }
                 }
               }
-            }));
-            UnitTestMultithreadedConcurrentTrieIterator.WaitThreadPoolCompletion();
+              finally
+              {
+                Interlocked.Decrement(ref counter);
+              }
+            }));        
 
             TestHelper.assertEquals(0, bt.size());
           }
+          UnitTestMultithreadedConcurrentTrieIterator.WaitThreadPoolCompletion(ref counter);
         }
       }
     }
